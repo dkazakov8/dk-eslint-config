@@ -1,0 +1,50 @@
+{
+  "name": "dk-eslint-config",
+  "author": "Dmitry Kazakov",
+  "license": "MIT",
+  "version": "1.0.8",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dkazakov8/dk-eslint-config.git"
+  },
+  "description": "Enterprise-quality ESLint config with TypeScript support",
+  "scripts": {
+    "prepare": "husky install",
+    "analyze:js": "eslint --ignore-path .formatignore --ext \".js,.ts,.tsx\" ./",
+    "format:js": "eslint --ignore-path .formatignore --ext \".js,.ts,.tsx\" --fix",
+    "generate-types": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "@types/eslint": "7.2.10",
+    "@types/eslint-plugin-prettier": "3.1.0",
+    "@typescript-eslint/eslint-plugin": "4.23.0",
+    "@typescript-eslint/parser": "4.23.0",
+    "eslint": "7.26.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-import-resolver-typescript": "2.4.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "3.4.0",
+    "eslint-plugin-react": "7.23.2",
+    "prettier": "2.4.1",
+    "prettier-eslint": "12.0.0",
+    "stylelint": "13.13.1",
+    "stylelint-config-prettier": "9.0.3",
+    "stylelint-prettier": "1.2.0",
+    "stylelint-scss": "3.21.0"
+  },
+  "devDependencies": {
+    "husky": "7.0.2",
+    "typescript": "4.5.4",
+    "lint-staged": "11.2.3"
+  },
+  "bugs": {
+    "url": "https://github.com/dkazakov8/dk-eslint-config/issues"
+  },
+  "homepage": "https://github.com/dkazakov8/dk-eslint-config#readme",
+  "main": "src/index.js",
+  "types": "types/index.d.ts",
+  "keywords": [
+    "eslint",
+    "config"
+  ]
+}

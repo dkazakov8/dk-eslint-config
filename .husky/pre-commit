@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# process exit on first error
+set -e
+
+yarn generate-types
+yarn run lint-staged
