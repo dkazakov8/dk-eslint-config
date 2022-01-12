@@ -7,13 +7,12 @@
 const path = require('path');
 
 function getConfig(options) {
-  return {
+  const config = {
     env: { node: true, browser: true },
     parser: '@typescript-eslint/parser',
     extends: [path.resolve(__dirname, './rules.js'), 'prettier'],
-    plugins: ['react', 'prettier', 'import', '@typescript-eslint'],
+    plugins: ['prettier', 'import', '@typescript-eslint'],
     settings: {
-      react: { pragma: 'React', version: 'detect' },
       'import/parsers': { '@typescript-eslint/parser': ['.ts', '.tsx'] },
       'import/resolver': options.tsConfigPath
         ? {
@@ -37,6 +36,14 @@ function getConfig(options) {
         ]
       : undefined,
   };
+
+  if (options.react) {
+    config.plugins.unshift('react');
+    config.extends.unshift(path.resolve(__dirname, './rulesReact.js'));
+    config.settings.react = { pragma: 'React', version: 'detect' };
+  }
+
+  return config;
 }
 
 module.exports = getConfig;

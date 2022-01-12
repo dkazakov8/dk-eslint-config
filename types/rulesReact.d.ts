@@ -9,4 +9,4 @@
  */
 declare const rulesConfig: import("eslint/rules").ESLintRules;
 export { rulesConfig as rules };
-//# sourceMappingURL=rules.d.ts.map
+//# sourceMappingURL=rulesReact.d.ts.map

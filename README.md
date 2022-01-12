@@ -36,7 +36,7 @@ const path = require('path');
 const { getEslintConfig } = require('dk-eslint-config');
 
 // When you need TypeScript
-// const eslintConfig = getEslintConfig({ tsConfigPath: path.resolve(__dirname, './tsconfig.json') });
+// const eslintConfig = getEslintConfig({ tsConfigPath: path.resolve(__dirname, './tsconfig.json'), react: true });
 
 const eslintConfig = getEslintConfig({});
 
@@ -79,23 +79,20 @@ Attach StyleLint and ESLint to your IDE, don't forget to enable auto-formatting 
 
 It's recommended to add pre-commit hooks. For examples look through this repository. Example of usage:
 
-1. Add `husky` and `lint-staged` to `devDependencies`
-2. Add `"prepare": "husky install"` to scripts
-3. Create `lint-staged.config.js` with content:
+1. Add `husky` (4.3.8 is cross-platform, higher versions are buggy) and `lint-staged` to `devDependencies`
+2. Create `lint-staged.config.js` with content:
 ```javascript
 const { lintStagedConfig } = require('dk-eslint-config');
 
 module.exports = lintStagedConfig;
 ```
-4. Create `.husky/pre-commit` with content:
-```shell
-#!/bin/sh
-
-# process exit on first error
-set -e
-
-# when you need TypeScript checks
-# yarn run check-types
-
-yarn run lint-staged
+3. Add husky section to package.json:
+```json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "set -e&&lint-staged"
+    }
+  }
+}
 ```

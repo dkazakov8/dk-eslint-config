@@ -8,10 +8,6 @@ declare function getConfig(options: any): {
     extends: any[];
     plugins: string[];
     settings: {
-        react: {
-            pragma: string;
-            version: string;
-        };
         'import/parsers': {
             '@typescript-eslint/parser': string[];
         };

@@ -2,17 +2,21 @@
   "name": "dk-eslint-config",
   "author": "Dmitry Kazakov",
   "license": "MIT",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dkazakov8/dk-eslint-config.git"
   },
   "description": "Enterprise-quality ESLint config with TypeScript support",
   "scripts": {
-    "prepare": "husky install",
     "analyze:js": "eslint --ignore-path .formatignore --ext \".js,.ts,.tsx\" ./",
     "format:js": "eslint --ignore-path .formatignore --ext \".js,.ts,.tsx\" --fix",
     "generate-types": "tsc --project tsconfig.json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "set -e&&yarn run generate-types&&git add types&&lint-staged"
+    }
   },
   "dependencies": {
     "@types/eslint": "7.2.10",
@@ -27,15 +31,16 @@
     "eslint-plugin-react": "7.23.2",
     "prettier": "2.4.1",
     "prettier-eslint": "12.0.0",
-    "stylelint": "13.13.1",
+    "stylelint": "14.2.0",
     "stylelint-config-prettier": "9.0.3",
-    "stylelint-prettier": "1.2.0",
-    "stylelint-scss": "3.21.0"
+    "stylelint-prettier": "2.0.0",
+    "postcss-scss": "4.0.3",
+    "postcss": "8.4.5"
   },
   "devDependencies": {
-    "husky": "7.0.2",
+    "husky": "4.3.8",
     "typescript": "4.5.4",
-    "lint-staged": "11.2.3"
+    "lint-staged": "12.1.7"
   },
   "bugs": {
     "url": "https://github.com/dkazakov8/dk-eslint-config/issues"

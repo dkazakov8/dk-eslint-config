@@ -12,7 +12,7 @@ export const prettierRules: {
 export const getEslintConfig: typeof import("./eslint.config");
 export const stylelintConfig: {
     extends: any[];
-    plugins: string[];
+    customSyntax: string;
 };
 export const lintStagedConfig: {
     '(*.js|*.ts|*.tsx)': string[];
