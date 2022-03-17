@@ -29,7 +29,13 @@ const rulesConfig = {
   '@typescript-eslint/array-type': ['error', { default: 'generic' }],
   '@typescript-eslint/no-magic-numbers': [
     'error',
-    { ignoreArrayIndexes: true, ignoreDefaultValues: true, ignore: [-1, 0, 1, 2] },
+    {
+      ignoreArrayIndexes: true,
+      ignoreDefaultValues: true,
+      ignoreNumericLiteralTypes: true,
+      ignoreReadonlyClassProperties: true,
+      ignore: [-1, 0, 1, 2],
+    },
   ],
   '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'no-type-imports' }],
   '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
