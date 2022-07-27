@@ -3,6 +3,8 @@
 [![npm](https://img.shields.io/npm/v/dk-eslint-config)](https://www.npmjs.com/package/dk-eslint-config)
 [![license](https://img.shields.io/npm/l/dk-eslint-config)](https://github.com/dkazakov8/dk-eslint-config/blob/master/LICENSE)
 
+Use as is or as an inspiration for your projects.
+
 ### Includes
 
 - perfectly configured rules for JavaScript files with React
@@ -31,8 +33,6 @@ And many more best-practices. Recommended for use in scalable enterprise applica
 1. Add `dk-eslint-config` to package.json
 2. Create `.eslintrc.js` with content:
 ```javascript
-const path = require('path');
-
 const { getEslintConfig } = require('dk-eslint-config');
 
 // When you need TypeScript
@@ -55,7 +55,7 @@ max_line_length = 100
 indent_style = space
 indent_size = 2
 ```
-5. Create `.formatignore` with content (maybe you need other folders):
+5. Create `.formatignore` with content (maybe you need other folders like build or dist):
 ```ignore
 node_modules
 .yarn
@@ -96,3 +96,59 @@ module.exports = lintStagedConfig;
   }
 }
 ```
+
+### Handling imports order
+
+Sometimes you need to define custom groups for imports sorting. Here is an example of `.eslintrc.js`
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+
+const { getEslintConfig } = require('dk-eslint-config');
+
+const eslintConfig = getEslintConfig({
+  react: true,
+  tsConfigPath: path.resolve(__dirname, './tsconfig.json'),
+});
+
+/**
+ * eslint-plugin-import considers all imports like './env.ts' | './paths.ts' as external
+ *
+ * but for better readability we need to treat them as internal to separate from
+ * imports from 'node_modules' folder
+ *
+ */
+
+const pathGroups = [
+  { pattern: 'env', group: 'internal' },
+  { pattern: 'paths', group: 'internal' },
+];
+
+/**
+ * let's treat all files in ./src as internal (for ex. Webpack is configured with this alias)
+ *
+ */
+
+fs.readdirSync(path.resolve(__dirname, 'src')).forEach((fileName) => {
+  const fileNameNoExt = path.parse(fileName).name;
+
+  pathGroups.push({ pattern: fileNameNoExt, group: 'internal' });
+  pathGroups.push({ pattern: `${fileNameNoExt}/**`, group: 'internal' });
+});
+
+eslintConfig.rules = {
+  'import/order': [
+    'error',
+    {
+      'newlines-between': 'always',
+      groups: ['builtin', 'external', 'internal', 'unknown', 'parent', 'sibling', 'index'],
+      pathGroups,
+      pathGroupsExcludedImportTypes: ['internal'],
+    },
+  ],
+};
+
+module.exports = eslintConfig;
+```
+
